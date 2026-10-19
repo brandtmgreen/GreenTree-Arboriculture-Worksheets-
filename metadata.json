@@ -1,0 +1,6 @@
+{
+  "name": "GreenTree Arborist Worksheets",
+  "description": "Professional arborist worksheets for health assessments, tree risk assessments, and job safety briefings.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

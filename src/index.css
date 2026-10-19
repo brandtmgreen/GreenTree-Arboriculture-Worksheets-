@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", sans-serif;
+  
+  --color-brand-green: #2D5A27;
+  --color-brand-vibrant: #00A651;
+  --color-brand-gold: #D4AF37;
+  --color-brand-gray: #4D4D4D;
+  --color-brand-cream: #F5F5F0;
+  --color-brand-ink: #1A1A1A;
+}
+
+@layer base {
+  body {
+    @apply bg-brand-cream text-brand-ink font-sans;
+  }
+  
+  h1, h2, h3, h4 {
+    @apply font-display font-semibold tracking-tight;
+  }
+}
+
+@layer components {
+  .worksheet-card {
+    @apply bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden;
+  }
+  
+  .input-field {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-brand-vibrant focus:border-brand-vibrant outline-none transition-all;
+  }
+  
+  .btn-primary {
+    @apply px-4 py-2 bg-brand-green text-white rounded-md hover:opacity-90 transition-all font-medium flex items-center justify-center gap-2;
+  }
+  
+  .btn-secondary {
+    @apply px-4 py-2 border border-brand-green text-brand-green rounded-md hover:bg-brand-green hover:text-white transition-all font-medium flex items-center justify-center gap-2;
+  }
+  
+  .section-header {
+    @apply text-lg font-bold mb-4 flex items-center gap-2 border-b pb-2;
+  }
+}
+
+@media print {
+  @page {
+    margin: 10mm 12mm;
+    size: letter portrait;
+  }
+
+  .page-break {
+    page-break-after: always;
+    break-after: page;
+  }
+
+  /* 1. In standard print (Print Current Filled Worksheet):
+        Hide navbars, buttons, modals, and the blank printable container */
+  header,
+  footer,
+  nav,
+  button,
+  .btn-primary,
+  .btn-secondary,
+  #printable-blank-container,
+  #printable-templates {
+    display: none !important;
+  }
+
+  /* 2. When printing all blank forms or single blank form:
+        Hide the main interactive app entirely and activate printable container */
+  body[data-print-mode="all-blank"] #interactive-app,
+  body[data-print-mode="single-blank"] #interactive-app,
+  body.print-all-blank #interactive-app,
+  body.print-single-blank #interactive-app {
+    display: none !important;
+  }
+
+  body[data-print-mode="all-blank"] #printable-blank-container,
+  body.print-all-blank #printable-blank-container {
+    display: block !important;
+  }
+
+  body[data-print-mode="single-blank"] #printable-blank-container,
+  body.print-single-blank #printable-blank-container {
+    display: block !important;
+  }
+
+  /* In single-blank mode, hide all sheets except the targeted one */
+  body[data-print-mode="single-blank"] .blank-worksheet,
+  body.print-single-blank .blank-worksheet {
+    display: none !important;
+  }
+
+  body[data-print-mode="single-blank"] .page-break,
+  body.print-single-blank .page-break {
+    display: none !important;
+  }
+
+  /* Display only targeted worksheet */
+  body[data-print-mode="single-blank"][data-print-sheet="estimate"] .blank-worksheet[data-sheet="estimate"],
+  body[data-print-mode="single-blank"][data-print-sheet="tree-risk"] .blank-worksheet[data-sheet="tree-risk"],
+  body[data-print-mode="single-blank"][data-print-sheet="briefing"] .blank-worksheet[data-sheet="briefing"],
+  body[data-print-mode="single-blank"][data-print-sheet="health"] .blank-worksheet[data-sheet="health"],
+  body[data-print-mode="single-blank"][data-print-sheet="inventory"] .blank-worksheet[data-sheet="inventory"],
+  body[data-print-mode="single-blank"][data-print-sheet="equipment"] .blank-worksheet[data-sheet="equipment"],
+  body[data-print-mode="single-blank"][data-print-sheet="drone"] .blank-worksheet[data-sheet="drone"],
+  body[data-print-mode="single-blank"][data-print-sheet="storm"] .blank-worksheet[data-sheet="storm"],
+  body[data-print-mode="single-blank"][data-print-sheet="postwork"] .blank-worksheet[data-sheet="postwork"],
+  body[data-print-mode="single-blank"][data-print-sheet="safety"] .blank-worksheet[data-sheet="safety"],
+  body[data-print-mode="single-blank"][data-print-sheet="media"] .blank-worksheet[data-sheet="media"] {
+    display: block !important;
+  }
+
+  /* High fidelity print settings */
+  .blank-worksheet {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+    background: white !important;
+    color: black !important;
+    box-shadow: none !important;
+  }
+}
+
